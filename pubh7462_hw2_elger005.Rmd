@@ -84,7 +84,7 @@ brfss.clean$response <- as.factor(brfss.clean$response)
 
 #### 3.3.1 In the year 2004, which states were observed at 6 locations?
 
-```{r error = FALSE, warning=FALSE, message=FALSE}
+```{r error = FALSE, warning=FALSE, message=FALSE, fig.height=6, fig.width=3}
 df <- brfss.clean %>%
   filter(year == "2004") %>% # choose only 2004 observations
   group_by(state) %>%
@@ -96,7 +96,14 @@ table1 <- df %>%
   gt() %>%
   tab_header("States observed at 6 locations in 2004") %>%
   cols_label(state = " ") %>%
-  cols_hide(no_rows)
+  cols_hide(no_rows) %>%
+  tab_style(
+    style = cell_text(
+      color = "#A9A9A9",
+      size = "xx-small"
+      ),
+    locations = cells_source_notes()
+)
 
 gtsave(table1, "table1.png")
 ```

@@ -65,7 +65,14 @@ table1 <- df %>%
   gt() %>%
   tab_header("States observed at 6 locations in 2004") %>%
   cols_label(state = " ") %>%
-  cols_hide(no_rows)
+  cols_hide(no_rows) %>%
+  tab_style(
+    style = cell_text(
+      color = "#A9A9A9",
+      size = "xx-small"
+      ),
+    locations = cells_source_notes()
+)
 
 gtsave(table1, "table1.png")
 ```
