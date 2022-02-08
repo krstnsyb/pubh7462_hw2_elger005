@@ -224,6 +224,7 @@ df2 %>%
   ) +
   scale_fill_viridis_d(name = "General health") +
   theme(legend.position = "bottom") +
+  theme(plot.title = element_text(hjust = 0.5)) +
   facet_wrap(~measure, scales = "free")
 ```
 
