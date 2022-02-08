@@ -61,6 +61,7 @@ df <- brfss.clean %>%
   summarise(no_rows = length(state)) %>% # count locations in each state
   filter(no_rows == 6) # select only those with 6 locations
 
+# create table
 table1 <- df %>%
   gt() %>%
   tab_header("States observed at 6 locations in 2004") %>%
@@ -72,6 +73,7 @@ table1 <- df %>%
     table.font.size = "xx-small"
   )
 
+# save table image
 gtsave(table1, "table1.png")
 ```
 
@@ -87,18 +89,19 @@ df <- brfss.clean %>%
   complete(state) # make sure that no states are completely missing a year
 
 # change nas for states with no observation that year to 0 for better plotting and summary statistics
-df$no_rows[is.na(df$no_rows)] <- 0 
+df$no_rows[is.na(df$no_rows)] <- 0
 
 # create a column with mean # of locations by state for plotting
 df <- df %>%
   group_by(state) %>%
   mutate(mean_loc = mean(no_rows))
 
-#spaghetti plot
+# spaghetti plot
 df %>%
   ggplot(aes(year, no_rows)) +
   geom_line(aes(group = state, color = fct_reorder(state, mean_loc, .desc = TRUE)), # order states from highest to lowest mean # of locations
-            size = 1, alpha = 0.5) +
+    size = 1, alpha = 0.5
+  ) +
   theme_minimal() +
   labs(
     x = "Year",
@@ -107,9 +110,11 @@ df %>%
        in each state from 2002 - 2010",
     caption = "*States listed from highest to lowest mean number of locations"
   ) +
-  scale_color_viridis_d(name = "State*") + 
-  theme(legend.position = "bottom",
-        legend.key.height = unit(0.3, 'cm'))
+  scale_color_viridis_d(name = "State*") +
+  theme(
+    legend.position = "bottom",
+    legend.key.height = unit(0.3, "cm")
+  )
 ```
 
 <img src="pubh7462_hw2_elger005_files/figure-gfm/unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
@@ -122,12 +127,12 @@ df2 <- df %>%
   summarise(mean = mean(no_rows)) %>% # get mean number of locations by state
   slice_max(mean, n = 1) # select the location with the highest mean
 
-#create the table showing the highest mean number of locations
+# create the table showing the highest mean number of locations
 table2 <- df2 %>%
   gt() %>%
   fmt_number(
     columns = mean,
-    decimals = 2  # only 2 decimal points
+    decimals = 2 # only 2 decimal points
   ) %>%
   tab_header("State with the highest mean number of locations
              from 2002 - 2010") %>%
@@ -135,13 +140,13 @@ table2 <- df2 %>%
     state = "State",
     mean = "Mean number of locations"
   ) %>%
-    tab_options(
+  tab_options(
     container.width = pct(30),
     container.height = pct(30),
     table.font.size = "xx-small"
   )
 
-
+# save table image
 gtsave(table2, "table2.png")
 ```
 
@@ -158,20 +163,24 @@ df <- brfss.clean %>%
   summarise(
     across(
       contains(c("sample_size", "data_value")),
-      list(mean = mean, sd = sd), na.rm = TRUE,
+      list(mean = mean, sd = sd),
+      na.rm = TRUE,
       .names = "{.col}_{.fn}"
-    )) %>%
+    )
+  ) %>%
   ungroup() %>%
   group_by(year)
 
 # Create table
 table3 <- df %>%
   gt() %>%
-    fmt_number(
+  fmt_number(
     columns = c(3:6),
     decimals = 2 # only 2 decimals
   ) %>%
-  tab_header("Mean and standard deviation of sample size and proportion of respondents whose health was excellent, good, or poor in Minnesota in 2002, 2006, and 2010") %>%
+  tab_header("Mean and standard deviation of sample size and proportion of respondents 
+             whose health was excellent, good, or poor in Minnesota 
+             in 2002, 2006, and 2010") %>%
   cols_label(
     response = " ",
     sample_size_mean = "Sample size mean",
@@ -180,6 +189,7 @@ table3 <- df %>%
     data_value_sd = "Proportion SD"
   )
 
+# save table image
 gtsave(table3, "table3.png")
 ```
 
@@ -218,7 +228,9 @@ df2 %>%
   geom_col(position = "dodge") +
   theme_minimal() +
   labs(
-    title = "Mean and standard deviation of sample size and proportion of respondents \n whose health was excellent, good, or poor in Minnesota \n in 2002, 2006, and 2010",
+    title = "Mean and standard deviation of sample size and proportion of respondents \n
+    whose health was excellent, good, or poor in Minnesota \n 
+    in 2002, 2006, and 2010",
     x = "Year",
     y = " "
   ) +
