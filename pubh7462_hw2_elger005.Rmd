@@ -192,7 +192,7 @@ The mean number of respondents went up consistently in all categories from 2002 
 
 
 #### Create a plot
-```{r warning = FALSE, eval = FALSE}
+```{r warning = FALSE}
 df2 <- df %>%
   pivot_longer(
     cols = c(sample_size_mean, sample_size_sd, data_value_mean, data_value_sd),
