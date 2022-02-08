@@ -66,18 +66,16 @@ table1 <- df %>%
   tab_header("States observed at 6 locations in 2004") %>%
   cols_label(state = " ") %>%
   cols_hide(no_rows) %>%
-  tab_style(
-    style = cell_text(
-      color = "#A9A9A9",
-      size = "xx-small"
-      ),
-    locations = cells_source_notes()
-)
+  tab_options(
+    container.width = pct(30),
+    container.height = pct(30),
+    table.font.size = "xx-small"
+  )
 
 gtsave(table1, "table1.png")
 ```
 
-<img src="pubh7462_hw2_elger005_files/figure-gfm/unnamed-chunk-3-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="pubh7462_hw2_elger005_files/figure-gfm/unnamed-chunk-3-1.png" style="display: block; margin: auto;" />
 
 #### 3.3.2 Make a “spaghetti plot” that shows the number of observed locations in each state from 2002 to 2010.
 
@@ -114,7 +112,7 @@ df %>%
         legend.key.height = unit(0.3, 'cm'))
 ```
 
-<img src="pubh7462_hw2_elger005_files/figure-gfm/unnamed-chunk-4-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="pubh7462_hw2_elger005_files/figure-gfm/unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
 
 Which state has the highest mean number of locations over this period?
 
@@ -136,12 +134,18 @@ table2 <- df2 %>%
   cols_label(
     state = "State",
     mean = "Mean number of locations"
+  ) %>%
+    tab_options(
+    container.width = pct(30),
+    container.height = pct(30),
+    table.font.size = "xx-small"
   )
+
 
 gtsave(table2, "table2.png")
 ```
 
-<img src="pubh7462_hw2_elger005_files/figure-gfm/unnamed-chunk-5-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="pubh7462_hw2_elger005_files/figure-gfm/unnamed-chunk-5-1.png" style="display: block; margin: auto;" />
 
 #### 3.3.3 Make a table showing, for the years 2002, 2006, and 2010, the mean and standard deviation of sample size and proportion of Excellent, Good, and Poor responses across locations in MN.
 
@@ -179,7 +183,7 @@ table3 <- df %>%
 gtsave(table3, "table3.png")
 ```
 
-<img src="pubh7462_hw2_elger005_files/figure-gfm/unnamed-chunk-6-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="pubh7462_hw2_elger005_files/figure-gfm/unnamed-chunk-6-1.png" style="display: block; margin: auto;" />
 
 The mean number of respondents went up consistently in all categories
 from 2002 - 2010. However, the proportion of respondents reporting
@@ -223,4 +227,4 @@ df2 %>%
   facet_wrap(~measure, scales = "free")
 ```
 
-<img src="pubh7462_hw2_elger005_files/figure-gfm/unnamed-chunk-7-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="pubh7462_hw2_elger005_files/figure-gfm/unnamed-chunk-7-1.png" style="display: block; margin: auto;" />

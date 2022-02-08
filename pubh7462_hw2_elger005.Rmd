@@ -21,9 +21,9 @@ knitr::opts_knit$set(echo = TRUE,
 #Controlling figure output in markdown
 knitr::opts_chunk$set(
 #  fig.height =   
-  fig.width = 6,
+#  fig.width = 6,
 #  fig.asp = .5,
-  out.width = "90%",
+# out.width = "90%",
 #  out.height = 
  fig.align = "center",
   cache = FALSE,
@@ -97,13 +97,11 @@ table1 <- df %>%
   tab_header("States observed at 6 locations in 2004") %>%
   cols_label(state = " ") %>%
   cols_hide(no_rows) %>%
-  tab_style(
-    style = cell_text(
-      color = "#A9A9A9",
-      size = "xx-small"
-      ),
-    locations = cells_source_notes()
-)
+  tab_options(
+    container.width = pct(30),
+    container.height = pct(30),
+    table.font.size = "xx-small"
+  )
 
 gtsave(table1, "table1.png")
 ```
@@ -163,7 +161,13 @@ table2 <- df2 %>%
   cols_label(
     state = "State",
     mean = "Mean number of locations"
+  ) %>%
+    tab_options(
+    container.width = pct(30),
+    container.height = pct(30),
+    table.font.size = "xx-small"
   )
+
 
 gtsave(table2, "table2.png")
 ```
