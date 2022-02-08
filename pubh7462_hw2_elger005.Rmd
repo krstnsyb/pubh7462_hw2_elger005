@@ -39,7 +39,7 @@ options(digits = 2)
 
 ## Problem 3. BRFSS SMART 2002-2010
 
-```{r include = TRUE, message = FALSE}
+```{r error = FALSE, warning=FALSE, message=FALSE}
 
 # Read data
 brfss <- read_csv("./data/brfss_smart_2010.csv")
@@ -47,7 +47,7 @@ brfss <- read_csv("./data/brfss_smart_2010.csv")
 
 ### 3.1 Data Exploration & Cleaning
 
-```{r warning = FALSE}
+```{r error = FALSE, warning=FALSE, message=FALSE}
 # clean variable names
 brfss <- janitor::clean_names(brfss)
 
@@ -83,7 +83,7 @@ brfss.clean$response <- as.factor(brfss.clean$response)
 
 #### 3.3.1 In the year 2004, which states were observed at 6 locations?
 
-```{r warning = FALSE}
+```{r error = FALSE, warning=FALSE, message=FALSE}
 df <- brfss.clean %>%
   filter(year == "2004") %>% # choose only 2004 observations
   group_by(state) %>%
@@ -99,7 +99,7 @@ df <- brfss.clean %>%
 
 #### 3.3.2 Make a "spaghetti plot" that shows the number of observed locations in each state from 2002 to 2010.
 
-```{r warning = FALSE, message = FALSE}
+```{r error = FALSE, warning=FALSE, message=FALSE}
 df <- brfss.clean %>%
   group_by(year, state) %>%
   distinct(county) %>% # list the counties in which observations occurred
@@ -134,7 +134,7 @@ df %>%
 
 Which state has the highest mean number of locations over this period?
 
-```{r warning = FALSE}
+```{r error = FALSE, warning=FALSE, message=FALSE}
 df2 <- df %>%
   group_by(state) %>%
   summarise(mean = mean(no_rows)) %>% # get mean number of locations by state
@@ -192,7 +192,7 @@ The mean number of respondents went up consistently in all categories from 2002 
 
 
 #### Create a plot
-```{r warning = FALSE}
+```{r error = FALSE, warning=FALSE, message=FALSE}
 df2 <- df %>%
   pivot_longer(
     cols = c(sample_size_mean, sample_size_sd, data_value_mean, data_value_sd),
