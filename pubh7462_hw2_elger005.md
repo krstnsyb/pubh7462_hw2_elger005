@@ -200,7 +200,7 @@ from 2002 - 2010. However, the proportion of respondents reporting
 excellent, good, or poor health in each year stayed approximately the
 same over time.
 
-#### 3.3.4 Pot of previous data
+#### 3.3.4 Plot of previous data
 
 ``` r
 df2 <- df %>%
@@ -228,9 +228,7 @@ df2 %>%
   geom_col(position = "dodge") +
   theme_minimal() +
   labs(
-    title = "Mean and standard deviation of sample size and proportion of respondents
-    whose health was excellent, good, or poor in Minnesota
-    in 2002, 2006, and 2010",
+    title = "Mean and standard deviation of sample size and proportion of respondents \n whose health was excellent, good, or poor in Minnesota \n in 2002, 2006, and 2010",
     x = "Year",
     y = " "
   ) +
