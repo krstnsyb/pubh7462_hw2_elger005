@@ -1,5 +1,5 @@
 ---
-title: "PUBH 7462 Homework 3"
+title: "PUBH 7462 Homework 2"
 author: 'Kristin Elgersma'
 date: "2/10/22"
 output: 
@@ -12,6 +12,7 @@ output:
 library(tidyverse)
 library(janitor)
 library(gt)
+library(webshot)
 
 #Working directory for .RMD
 knitr::opts_knit$set(echo = TRUE,
@@ -91,10 +92,13 @@ df <- brfss.clean %>%
   summarise(no_rows = length(state)) %>% # count locations in each state
   filter(no_rows == 6) # select only those with 6 locations
 
- gt(df) %>%
-   tab_header("States observed at 6 locations in 2004") %>%
-   cols_label(state = " ") %>%
-   cols_hide(no_rows)
+table1 <- df %>%
+  gt() %>%
+  tab_header("States observed at 6 locations in 2004") %>%
+  cols_label(state = " ") %>%
+  cols_hide(no_rows)
+
+gtsave(table1, "table1.png")
 ```
 
 #### 3.3.2 Make a "spaghetti plot" that shows the number of observed locations in each state from 2002 to 2010.
@@ -141,7 +145,8 @@ df2 <- df %>%
   slice_max(mean, n = 1) # select the location with the highest mean
 
 #create the table showing the highest mean number of locations
-gt(df2) %>%
+table2 <- df2 %>%
+  gt() %>%
   fmt_number(
     columns = mean,
     decimals = 2  # only 2 decimal points
@@ -152,6 +157,8 @@ gt(df2) %>%
     state = "State",
     mean = "Mean number of locations"
   )
+
+gtsave(table2, "table2.png")
 ```
 
 #### 3.3.3 Make a table showing, for the years 2002, 2006, and 2010, the mean and standard deviation of sample size and proportion of Excellent, Good, and Poor responses across locations in MN.
@@ -172,7 +179,7 @@ df <- brfss.clean %>%
   group_by(year)
 
 # Create table
-df %>%
+table3 <- df %>%
   gt() %>%
     fmt_number(
     columns = c(3:6),
@@ -186,6 +193,8 @@ df %>%
     data_value_mean = "Proportion mean",
     data_value_sd = "Proportion SD"
   )
+
+gtsave(table3, "table3.png")
 ```
 
 The mean number of respondents went up consistently in all categories from 2002 - 2010. However, the proportion of respondents reporting excellent, good, or poor health in each year stayed approximately the same over time.
